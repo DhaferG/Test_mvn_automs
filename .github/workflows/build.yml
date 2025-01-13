@@ -32,15 +32,19 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         # Build and test the project
       - name: Build and Test
+        working-directory:  autom/
         run: mvn clean test
         # Generate Javadoc
       - name: Generate Javadoc
+        working-directory:  autom/ 
         run: mvn javadoc:javadoc
     # Package the application
       - name: Package JAR
+        working-directory:  autom/
         run: mvn package
     # SonarQube analysis
       - name: SonarQube Analysis
+        working-directory:  autom/
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
